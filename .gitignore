@@ -1,8 +1,7 @@
 ###
 venv/
 .idea
-
-
+media/*
 
 ### DJANGO IGNORE
 db.sqlite3
