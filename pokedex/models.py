@@ -27,7 +27,7 @@ class Elemento(models.Model):
 
 class Pokemon(models.Model):
     imagem = models.FileField(upload_to='pokemon/imagens/')
-    nome = models.CharField(max_length=200)
+    nome = models.CharField(max_length=200, unique=True)
     ataque_fisica = models.PositiveIntegerField()
     defesa_fisica = models.PositiveIntegerField()
     ataque_especial = models.PositiveIntegerField()

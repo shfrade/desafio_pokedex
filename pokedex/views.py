@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import Pokemon
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 
 # Create your views here.
@@ -18,3 +20,19 @@ def listar_todos(request):
         'pokemons': pokemons
     }
     return render(request, 'listar_todos.html', contexto)
+
+
+def pokemon(request, pokemon):
+    pokemon_obj = get_object_or_404(Pokemon, nome__iexact=pokemon)
+    # todo refazer a página 404.
+    '''
+    # Faz o mesmo que a linha 25 nestas linhas 28 até 31
+    try:
+        pokemon_obj = Pokemon.objects.get(nome__iexact=pokemon)
+    except Pokemon.DoesNotExist:
+        raise Http404("Não existe esse pokemon.")
+    '''
+    # where upper(nome) == upper(pokemon)
+
+    contexto = {'pokemon': pokemon_obj}
+    return render(request, 'pokemon.html', contexto)

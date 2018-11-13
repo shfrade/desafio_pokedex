@@ -1,32 +1,23 @@
 {% extends 'basico.html' %}
 {% block conteudo %}
-    Listando todos os pokemons
-    <div class="card-group">
-        {% for pokemon in pokemons %}
-            <div class="card text-muted">
-                <img class="card-img-top" src="{{ pokemon.imagem.url }}" height="100" width="180" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">{{ pokemon.nome }}</h5>
-                    <ul>
-                        {% for habilidade in pokemon.habilidades.all %}
-                            <li>{{ habilidade.nome }}
-                        {% endfor %}
-                        </li>
-                    </ul>
-
-                    <p class="card-text">
-                        Ataque
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="{{ pokemon.ataque_fisica }}"
-                             style="width: {{ pokemon.ataque_fisica }}%" aria-valuemin="0" aria-valuemax="100"></div>
+    {% if pokemons|length == 0 %}
+        <div class="col-12">
+            <h1>NÃO TEM NENHUM POKEMON AINDA.</h1>
+        </div>
+    {% else %}Listando todos os pokemons
+        <div class="card-deck">
+            {% for pokemon in pokemons %}
+                <a class="card col-md-4" href="{% url 'pokedex:pokemon' pokemon.nome %}">
+                    <img class="card-img-top" width="100" height="200" src="{{ pokemon.imagem.url }}"
+                         alt="Imagem do pokemon">
+                    <div class="card-body">
+                        <h5 class="card-title text-muted ">{{ pokemon.nome }}</h5>
                     </div>
-                    </p>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    <div class="col-md-4 offset-md-4 ">
-        <div class="pagination">
+                </a>
+            {% endfor %}
+        </div>
+        <div class="col-md-4 offset-md-4 ">
+            <div class="pagination">
     <span class="step-links">
         {% if pokemons.has_previous %}
             <a href="?page=1"><i class="fa fa-angle-double-left"></i></a>
@@ -42,6 +33,7 @@
             <a href="?page={{ pokemons.paginator.num_pages }}"><i class="fa fa-angle-double-right"></i></a>
         {% endif %}
     </span>
+            </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
