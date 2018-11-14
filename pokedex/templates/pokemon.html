@@ -1,128 +1,162 @@
 {% extends 'basico.html' %}
 {% block conteudo %}
-    <div class="col-12 row">
-        <div class="col-4 col-sm-12">
+    <div class="row col-12">
+        <div class="col-3">
             <img width="180" height="200" src="{{ pokemon.imagem.url }}">
         </div>
-        <div class="col-8  col-sm-12">
+        <div class="col-9">
             <div class="row">
                 <div class="col-3">
                     <b>Pokemon:</b>
                 </div>
                 <div class="col-9">
-                    {{ pokemon.nome }}
+                    <h3>{{ pokemon.nome }}</h3>
                 </div>
             </div>
             <hr style="background-color: white;">
             <div class="row">
-                <div class="col-3">
-                    <b>Vida:</b>
-                </div>
-                <div class="col-9">
-                    <div class="progress" style="height: 20px;color: #007bff;">
-                        <div class="progress-bar" role="progressbar" style="width: {{ pokemon.vida }}%;"
-                             aria-valuenow="25"
-                             aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.vida }}
+                <div class="col-8">
+                    <div class="col-3">
+                        <b>Elementos:</b>
+                    </div>
+                    <div class="col-9">
+                        {% for elemento in pokemon.elementos.all %}
+                            {{ elemento.nome }}<br>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-3">
+                        <b>Habilidades:</b>
+                    </div>
+                    <div class="col-9">
+                        {% for habilidade in pokemon.habilidades.all %}
+                            {{ habilidade.nome }}&nbsp;
+                            <i class="fa fa-question-circle " data-toggle="tooltip"
+                               data-placement="top"
+                               title="{{ habilidade.descricao }}"></i><br>
+                        {% endfor %}
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <b>Vida:</b>
-                </div>
-                <div class="col-9">
-                    <div class="progress" style="height: 20px;color: #007bff;">
-                        <div class="progress-bar" role="progressbar" style="width: {{ pokemon.vida }}%;"
-                             aria-valuenow="25"
-                             aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.vida }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <b>Vida:</b>
-                </div>
-                <div class="col-9">
-                    <div class="progress" style="height: 20px;color: #007bff;">
-                        <div class="progress-bar" role="progressbar" style="width: {{ pokemon.vida }}%;"
-                             aria-valuenow="25"
-                             aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.vida }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <b>Vida:</b>
-                </div>
-                <div class="col-9">
-                    <div class="progress" style="height: 20px;color: #007bff;">
-                        <div class="progress-bar" role="progressbar" style="width: {{ pokemon.vida }}%;"
-                             aria-valuenow="25"
-                             aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.vida }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <b>Vida:</b>
-                </div>
-                <div class="col-9">
-                    <div class="progress" style="height: 20px;color: #007bff;">
-                        <div class="progress-bar" role="progressbar" style="width: {{ pokemon.vida }}%;"
-                             aria-valuenow="25"
-                             aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.vida }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <b>Vida:</b>
-                </div>
-                <div class="col-9">
-                    <div class="progress" style="height: 20px;color: #007bff;">
-                        <div class="progress-bar" role="progressbar" style="width: {{ pokemon.vida }}%;"
-                             aria-valuenow="25"
-                             aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.vida }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <b>Vida:</b>
-                </div>
-                <div class="col-9">
-                    <div class="progress" style="height: 20px;color: #007bff;">
-                        <div class="progress-bar" role="progressbar" style="width: {{ pokemon.vida }}%;"
-                             aria-valuenow="25"
-                             aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.vida }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <b>Vida:</b>
-                </div>
-                <div class="col-9">
-                    <div class="progress" style="height: 20px;color: #007bff;">
-                        <div class="progress-bar" role="progressbar" style="width: {{ pokemon.vida }}%;"
-                             aria-valuenow="25"
-                             aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.vida }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <b>Vida:</b>
-                </div>
-                <div class="col-9">
-                    <div class="progress" style="height: 20px;color: #007bff;">
-                        <div class="progress-bar" role="progressbar" style="width: {{ pokemon.vida }}%;"
-                             aria-valuenow="25"
-                             aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.vida }}
-                    </div>
+                <div class="col-4">
+                    {% if pokemon.evolucao != None %}
+                        <a href="{% url 'pokedex:pokemon' pokemon.evolucao.nome %}">
+                            <span class="badge badge-primary">Evolução: {{ pokemon.evolucao.nome }}</span><br>
+                            <img width="100px" height="100px"
+                                 src="{{ pokemon.evolucao.imagem.url }}"></a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
-
+    <div class="col-12 mt-3 mb-5    ">
+        <hr style="background-color: white;">
+        <div class="row col-12 justify-content-center">
+            <h4>Atributos</h4>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <b>Ataque Fisico:</b>
+            </div>
+            <div class="col-9">
+                <div class="progress" style="height: 20px;color: #007bff;">
+                    <div class="progress-bar" role="progressbar" style="width: {{ pokemon.ataque_fisica }}%;"
+                         aria-valuenow="25"
+                         aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.ataque_fisica }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <b>Defesa Fisica:</b>
+            </div>
+            <div class="col-9">
+                <div class="progress" style="height: 20px;color: #007bff;">
+                    <div class="progress-bar" role="progressbar" style="width: {{ pokemon.defesa_fisica }}%;"
+                         aria-valuenow="25"
+                         aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.defesa_fisica }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <b>Ataque especial:</b>
+            </div>
+            <div class="col-9">
+                <div class="progress" style="height: 20px;color: #007bff;">
+                    <div class="progress-bar" role="progressbar" style="width: {{ pokemon.ataque_especial }}%;"
+                         aria-valuenow="25"
+                         aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.ataque_especial }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <b>Defesa especial:</b>
+            </div>
+            <div class="col-9">
+                <div class="progress" style="height: 20px;color: #007bff;">
+                    <div class="progress-bar" role="progressbar" style="width: {{ pokemon.defesa_especial }}%;"
+                         aria-valuenow="25"
+                         aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.defesa_especial }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <b>Velocidade:</b>
+            </div>
+            <div class="col-9">
+                <div class="progress" style="height: 20px;color: #007bff;">
+                    <div class="progress-bar" role="progressbar" style="width: {{ pokemon.velocidade }}%;"
+                         aria-valuenow="25"
+                         aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.velocidade }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <b>Experiencia:</b>
+            </div>
+            <div class="col-9">
+                <div class="progress" style="height: 20px;color: #007bff;">
+                    <div class="progress-bar" role="progressbar" style="width: {{ pokemon.experiencia }}%;"
+                         aria-valuenow="25"
+                         aria-valuemin="0" aria-valuemax="100"></div>&emsp;{{ pokemon.experiencia }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <b>Peso:</b>
+            </div>
+            <div class="col-9">
+                <div class="progress" style="height: 20px;color: #007bff;">
+                    <div class="progress-bar" role="progressbar" style="width: {% widthratio pokemon.peso 1000 100 %}%;"
+                         aria-valuenow="{{ pokemon.peso }}"
+                         aria-valuemin="0" aria-valuemax="1000"></div>&emsp;{{ pokemon.peso }} kg
+                </div>
+            </div>
+        </div>
+        <hr style="background-color: white;">
+        <div class="row col-12 justify-content-center">
+            <h4>Movimentos:</h4>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3">
+                {% for movimento in pokemon.movimentos.all %}
+                    {{ movimento.nome }}&nbsp;
+                    <i class="fa fa-question-circle " data-toggle="tooltip"
+                       data-placement="top"
+                       title="{{ movimento.descricao }}"></i><br>
+                {% endfor %}
+            </div>
+            <div class="col-12 mt-2">
+                <a href="{% url 'pokedex:listar_todos' %}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fa fa-chevron-left"></i>
+                        Voltar
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
